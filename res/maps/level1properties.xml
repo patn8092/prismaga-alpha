@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LevelProperties>
+    <Door id="0" whereTo="/maps/level2.png"></Door>
+</LevelProperties>
