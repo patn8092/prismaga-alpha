@@ -51,7 +51,16 @@ public class InventoryCell {
 					null
 					);
 		
-		
+		if(this.item != null && this.item.image != null) {
+			g.drawImage(
+					this.item.image,
+					this.x + 4,
+					this.y + 4,
+					this.item.image.getWidth() * Game.SCALE,
+					this.item.image.getHeight() * Game.SCALE,
+					null
+					);
+		}
 	}
 	
 	public void add(int i) {
