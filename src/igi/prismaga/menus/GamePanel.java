@@ -32,7 +32,6 @@ public class GamePanel extends Menu	{
 	private static Player player;
 	private static HUD hud;
 	private Properties playerData;
-	public Potion item = new Potion(128, 128); //debug potion
 
 	public GamePanel() {
 		tempPlayerData = new ArrayList<Object>();
@@ -41,7 +40,7 @@ public class GamePanel extends Menu	{
 		entityManager.addEntity(new OldManNPC(64,64));
 		LevelManager.setCurrentLevel(new Level(Game.imageLoader.load("/maps/level.png")));
 		hud = new HUD();
-			}
+	}
 	
 	public void tick() {
 		hud.tick();
@@ -49,7 +48,6 @@ public class GamePanel extends Menu	{
 			LevelManager.getCurrentLevel().tick();
 		}
 		entityManager.tick();
-		item.tick();
 	}
 	
 	public void render(Graphics g) {
@@ -60,7 +58,6 @@ public class GamePanel extends Menu	{
 		entityManager.render(g);
 
 		hud.render(g);
-		item.render(g, 128, 128);
 		//top
 	}
 	
