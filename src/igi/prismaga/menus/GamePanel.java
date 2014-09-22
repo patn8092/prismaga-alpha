@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.Random;
 
 public class GamePanel extends Menu	{
 	
@@ -32,17 +33,23 @@ public class GamePanel extends Menu	{
 	private static Player player;
 	private static HUD hud;
 	private Properties playerData;
-	public Potion potion;
+	
 	
 	//Constructor
 	public GamePanel() {
 		tempPlayerData = new ArrayList<Object>();
 		entityManager = new EntityManager();
+		
 		loadPlayerData();
+		
 		entityManager.addEntity(new OldManNPC(64,64));
+		
+		for(int x = 0; x < 10; x++)
+			entityManager.addEntity(new Potion(x * 32, new Random().nextInt(64)));
+		
 		LevelManager.setCurrentLevel(new Level(Game.imageLoader.load("/maps/level.png")));
+		
 		hud = new HUD();
-		potion = new Potion(128,128);
 	}
 	
 	public void tick() {
@@ -51,7 +58,6 @@ public class GamePanel extends Menu	{
 			LevelManager.getCurrentLevel().tick();
 		}
 		entityManager.tick();
-		potion.tick();
 	}
 	
 	public void render(Graphics g) {
@@ -59,7 +65,7 @@ public class GamePanel extends Menu	{
 		if(LevelManager.getCurrentLevel() != null) {
 			LevelManager.getCurrentLevel().render(g);
 		}
-		potion.render(g, 0, 0);
+		
 		entityManager.render(g);
 
 		hud.render(g);

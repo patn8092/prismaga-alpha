@@ -15,12 +15,15 @@ public class GameFont {
 	
 	public String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890!?.,:;$%()-=+/\'\"<>{}[]";
 	
-	public SpriteSheet glyphs = new SpriteSheet(Game.imageLoader.load("/gfx/fonts/glyphs.png"));
+	public static SpriteSheet glyphs = new SpriteSheet(Game.imageLoader.load("/gfx/fonts/glyphs.png"));
+	public static SpriteSheet glyphs2 = new SpriteSheet(Game.imageLoader.load("/gfx/fonts/glyphs2.png"));
+	public static SpriteSheet currentGlyphsheet;
 	
 	public GameFont() {
 		fontWidth = 8;
 		fontHeight = 8;
 		align = CENTER;
+		currentGlyphsheet = glyphs;
 	}
 	
 	public void renderMessage(Graphics g, String msg, int x, int y) {
@@ -31,7 +34,7 @@ public class GameFont {
 
 			if(characters.indexOf(msg.charAt(i)) > -1 || characters.indexOf(msg.charAt(i)) < characters.length()) {
 				
-				BufferedImage currentCharacterImage = glyphs.cropFont(characters.indexOf(msg.charAt(i)) * fontWidth, 0, fontWidth, getFontHeight());
+				BufferedImage currentCharacterImage = currentGlyphsheet.cropFont(characters.indexOf(msg.charAt(i)) * fontWidth, 0, fontWidth, getFontHeight());
 				
 				if(align == LEFT) {
 					g.drawImage(currentCharacterImage, 
@@ -72,8 +75,18 @@ public class GameFont {
 		this.align = a;
 	}
 	
-	public void setFont(BufferedImage fntimg) {
-		this.glyphs = new SpriteSheet(fntimg);
+	public void setFont(int i) {
+		switch(i) {
+		case 1: 
+			GameFont.currentGlyphsheet = glyphs;
+			break;
+		case 2: 
+			GameFont.currentGlyphsheet = glyphs2;
+			break;
+		default: 
+			GameFont.currentGlyphsheet = glyphs; 
+			break;
+		}
 	}
 
 	public static int getFontHeight() {

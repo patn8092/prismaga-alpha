@@ -1,5 +1,6 @@
 package igi.prismaga.hud;
 
+import igi.prismaga.gfx.GameFont;
 import igi.prismaga.items.Item;
 import igi.prismaga.main.Game;
 
@@ -58,6 +59,15 @@ public class Inventory {
 								inventoryUIButton.currentImage.getHeight() * Game.SCALE, 
 								null
 								);
+						
+						if(inventory[x][y].item != null) {
+							Game.fontRenderer.setFont(2);
+							Game.fontRenderer.renderMessage(g,
+									inventory[x][y].amount+"", 
+									(spacing * Game.SCALE) + (x + (spacing * Game.SCALE) + (cellImage.getWidth() * Game.SCALE)) * x, 
+									(Game.HEIGHT * Game.SCALE) - (0 + (spacing * Game.SCALE) + (cellImage.getHeight() * Game.SCALE)) * (0 + 1) + (cellImage.getHeight() * Game.SCALE - (GameFont.getFontHeight() * Game.SCALE))
+									);
+						}
 					}
 				}
 			} else if(mode == 1){
@@ -74,6 +84,15 @@ public class Inventory {
 								inventoryUIButton.currentImage.getHeight() * Game.SCALE, 
 								null
 								);
+					
+					if(inventory[x][0].item != null) {
+						Game.fontRenderer.setFont(2);
+						Game.fontRenderer.renderMessage(g,
+								inventory[x][0].amount+"", 
+								(spacing * Game.SCALE) + (x + (spacing * Game.SCALE) + (cellImage.getWidth() * Game.SCALE)) * x, 
+								(Game.HEIGHT * Game.SCALE) - (0 + (spacing * Game.SCALE) + (cellImage.getHeight() * Game.SCALE)) * (0 + 1) + (cellImage.getHeight() * Game.SCALE - (GameFont.getFontHeight() * Game.SCALE))
+								);
+					}
 				}
 			}
 		}
@@ -122,13 +141,22 @@ public class Inventory {
 		}
 	}
 	
-	public void addItem(Item i) {
+	public void addItem(Item i,BufferedImage b) {
 		for(int y = 0; y < h; y++) {
 			for(int x = 0; x < w; x++) {
 				if(inventory[x][y].item != null) {
-					continue;
+					if(i.getClass() == inventory[x][y].item.getClass()) {
+						inventory[x][y].add(1);
+						System.out.println(inventory[x][y].amount);
+						return;
+					} else {
+						continue;
+					}
 				} else {
 					inventory[x][y].item = i;
+					inventory[x][y].add(1);
+					inventory[x][y].itemImage = b;
+					return;
 				}
 			}
 		}

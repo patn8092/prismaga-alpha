@@ -27,19 +27,29 @@ public class Potion extends Item{
 		if(!isCollected) {
 			this.x = this.xo - GamePanel.getPlayer().getXOffset();
 			this.y = this.yo - GamePanel.getPlayer().getYOffset();
-			System.out.println(this.x +"," + this.y +","+ GamePanel.getPlayer().getX() + "," +
-			GamePanel.getPlayer().getY());
-			if(GamePanel.getPlayer().getX() >= this.x
-			&& GamePanel.getPlayer().getX() <= this.x + (this.image.getWidth() * Game.SCALE)
-			&& GamePanel.getPlayer().getY() >= this.y
-			&& GamePanel.getPlayer().getY() <= this.y + (this.image.getHeight() * Game.SCALE)) {
+			
+			if(GamePanel.getPlayer().getX() + (GamePanel.getPlayer().getWidth() / 2) >= this.x 
+					&& GamePanel.getPlayer().getX() + (GamePanel.getPlayer().getWidth() / 2) <= this.x + (this.image.getWidth() * Game.SCALE)
+					&& GamePanel.getPlayer().getY() + (GamePanel.getPlayer().getHeight() / 2) >= this.y 
+					&& GamePanel.getPlayer().getY() + (GamePanel.getPlayer().getHeight() / 2) <= this.y + (this.image.getHeight() * Game.SCALE)) {
 				this.isCollected = true;
-				GamePanel.getHUD().getInventory().addItem(this);
+				GamePanel.getHUD().getInventory().addItem(this,this.image);
 			}
 		}
 	}
 	 
-	public void render(Graphics g, int x, int y) {
+//	public void render(Graphics g, int x, int y) {
+//		if(!isCollected)
+//			g.drawImage(image, 
+//						this.x, 
+//						this.y, 
+//						image.getWidth() * Game.SCALE,
+//						image.getHeight() * Game.SCALE, 
+//						null);
+//	}
+
+	@Override
+	public void render(Graphics g) {
 		if(!isCollected)
 			g.drawImage(image, 
 						this.x, 
@@ -47,5 +57,11 @@ public class Potion extends Item{
 						image.getWidth() * Game.SCALE,
 						image.getHeight() * Game.SCALE, 
 						null);
+	}
+
+	@Override
+	public void render(Graphics g, int x, int y) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -52,6 +52,9 @@ public class Textbox {
 	}
 	
 	public void render(Graphics g, String message) {
+		 
+		Game.fontRenderer.setFont(1);
+		
 		g.drawImage(currentTextbox,
 				x,
 				y,

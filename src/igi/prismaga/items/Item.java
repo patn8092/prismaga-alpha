@@ -7,10 +7,12 @@
 
 package igi.prismaga.items;
 
+import igi.prismaga.entities.Entity;
+
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-public abstract class Item {
+public abstract class Item extends Entity { 
 	
 	public BufferedImage image;
 	

@@ -146,14 +146,14 @@ public class Player extends Entity {
 		if(LevelManager.getCurrentLevel().getTile((xo + xs + x) / (Game.TILESIZE * Game.SCALE), 
 				(yo + ys + y) / (Game.TILESIZE * Game.SCALE)).isSolid())		
 			return true;
-		if(LevelManager.getCurrentLevel().getTile((xo + xs + x + width * Game.SCALE - 1) / (Game.TILESIZE * Game.SCALE), 
+		if(LevelManager.getCurrentLevel().getTile((xo + xs + x + getWidth() * Game.SCALE - 1) / (Game.TILESIZE * Game.SCALE), 
 				(yo + ys + y) / (Game.TILESIZE * Game.SCALE)).isSolid())			
 			return true;
 		if(LevelManager.getCurrentLevel().getTile((xo + xs + x) / (Game.TILESIZE * Game.SCALE), 
-				(yo + ys + y + height * Game.SCALE - 1) / (Game.TILESIZE * Game.SCALE)).isSolid())			
+				(yo + ys + y + getHeight() * Game.SCALE - 1) / (Game.TILESIZE * Game.SCALE)).isSolid())			
 			return true;
-		if(LevelManager.getCurrentLevel().getTile((xo + xs + x + width * Game.SCALE - 1) / (Game.TILESIZE * Game.SCALE), 
-				(yo + ys + y + height * Game.SCALE - 1) / (Game.TILESIZE * Game.SCALE)).isSolid())			
+		if(LevelManager.getCurrentLevel().getTile((xo + xs + x + getWidth() * Game.SCALE - 1) / (Game.TILESIZE * Game.SCALE), 
+				(yo + ys + y + getHeight() * Game.SCALE - 1) / (Game.TILESIZE * Game.SCALE)).isSolid())			
 			return true;
 		return false;
 	}
@@ -165,4 +165,12 @@ public class Player extends Entity {
 	public String getUsername() {return username;}
 	public int getX() {return x;}
 	public int getY() {return y;}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
 }

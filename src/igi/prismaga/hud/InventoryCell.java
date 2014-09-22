@@ -6,15 +6,15 @@ import igi.prismaga.main.Game;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-@SuppressWarnings("unused")
 public class InventoryCell {
 	
 	private BufferedImage cellImage = Game.imageLoader.load("/gfx/hud/inventory_cell.png");
 	private BufferedImage cellImageHover = Game.imageLoader.load("/gfx/hud/inventory_cell_hover.png");
 	private BufferedImage currentImage;
 	
-	public Item item;
-	private int amount;
+	public Item item = null;
+	public BufferedImage itemImage = null;
+	public int amount;
 	private boolean isHovering = false;
 	private int x,y,width,height;
 	
@@ -51,13 +51,13 @@ public class InventoryCell {
 					null
 					);
 		
-		if(this.item != null && this.item.image != null) {
+		if(this.item != null) {
 			g.drawImage(
-					this.item.image,
-					this.x + 4,
-					this.y + 4,
-					this.item.image.getWidth() * Game.SCALE,
-					this.item.image.getHeight() * Game.SCALE,
+					itemImage,
+					this.x + 8,
+					this.y + 8,
+					itemImage.getWidth() * Game.SCALE,
+					itemImage.getHeight() * Game.SCALE,
 					null
 					);
 		}

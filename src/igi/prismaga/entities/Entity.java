@@ -49,10 +49,10 @@ public abstract class Entity {
 	
 	public abstract void render(Graphics g);
 	
-	public abstract void move(int xs, int ys);
+	public void move(int xs, int ys) {}
 	
-	public abstract void checkTile(int xs, int ys);
+	public void checkTile(int xs, int ys) {}
 	
-	public abstract boolean collision(int xs, int ys);
+	public boolean collision(int xs, int ys) { return false; }
 	
 }
