@@ -32,10 +32,27 @@ public class InventoryCell {
 			this.isHovering = false;
 		}
 		
-		if(this.isHovering)
+		if(this.isHovering) {
 			this.currentImage = cellImageHover;
-		else
+			
+			if(Game.getMouseHandler().LEFT_BUTTON_PRESSED) {
+				this.subtract(1);
+				Game.getMouseHandler().LEFT_BUTTON_PRESSED = false; //prevents mass reduction
+			}
+			
+		} else {	
 			this.currentImage = cellImage;
+		}
+		
+		
+		if(this.amount == 0) {
+			this.item = null;
+		}
+		
+		if(this.item == null) {
+			this.amount = 0;
+		}
+		
 	}
 	
 	public void render(Graphics g, int x, int y) {

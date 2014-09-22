@@ -5,9 +5,12 @@ import igi.prismaga.gfx.ImageManager;
 import igi.prismaga.levels.Level;
 import igi.prismaga.levels.LevelManager;
 import igi.prismaga.main.Game;
+import igi.prismaga.menus.GamePanel;
 import igi.prismaga.tiles.Tile;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 
@@ -17,6 +20,7 @@ public class Player extends Entity {
 	private final int width;
 	private final int height;
 	private long hurtTimer = System.currentTimeMillis();
+	private Rectangle bounds;
 	
 	public Player(int x, int y, ImageManager im, AnimationManager am, String username) {
 		this.x = x;
@@ -33,12 +37,13 @@ public class Player extends Entity {
 		this.width = 16;
 		this.height = 16;
 		this.canSpeak = false;
+		this.bounds = new Rectangle(this.x, this.y, this.width * Game.SCALE, this.height * Game.SCALE);
 	}
 	
 	public void tick() {		
 		if(health == 0) {
 			status = DEAD;
-			EntityManager.removeEntity(this);
+			GamePanel.getEntityManager().removeEntity(this);
 		}
 		
 		if(delay % 8 == 0) {
@@ -77,6 +82,8 @@ public class Player extends Entity {
 			xs += SPEED;
 		}	
 		move(xs, ys);
+		
+		System.out.println(GamePanel.getEntityManager().entities.size());
 	}
 	
 	public void render(Graphics g) {
@@ -94,6 +101,9 @@ public class Player extends Entity {
 			Game.TILESIZE * Game.SCALE, 
 			null
 		);
+		
+		g.setColor(Color.CYAN);
+		g.drawRect(this.x, this.y, this.width * Game.SCALE, this.height * Game.SCALE);
 	}
 	
 	public void move(int xs, int ys) {
@@ -172,5 +182,9 @@ public class Player extends Entity {
 
 	public int getHeight() {
 		return height;
+	}
+	
+	public Rectangle getBounds() {
+		return bounds;
 	}
 }

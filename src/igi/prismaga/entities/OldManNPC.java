@@ -90,16 +90,6 @@ public class OldManNPC extends Entity {
 			GamePanel.getHUD().getInventory().UIIsVisible = true;
 		}
 		
-		if(canSpeak) {
-			g.drawImage(speech, 
-				this.xo - GamePanel.getPlayer().getXOffset() + 16 - (speech.getWidth()), 
-				this.yo - (speech.getHeight() * Game.SCALE + 2) - GamePanel.getPlayer().getYOffset(),
-				speech.getWidth() * Game.SCALE,
-				speech.getHeight() * Game.SCALE,
-				null
-				);
-		}
-		
 		g.drawImage(currentFrame, 
 				this.xo - GamePanel.getPlayer().getXOffset(), 
 				this.yo - GamePanel.getPlayer().getYOffset(), 

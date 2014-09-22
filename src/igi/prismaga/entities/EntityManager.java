@@ -12,7 +12,7 @@ public class EntityManager {
 		entities.add(e);
 	}
 	
-	public static void removeEntity(Entity e) {
+	public void removeEntity(Entity e) {
 		entities.remove(e);
 	}
 	

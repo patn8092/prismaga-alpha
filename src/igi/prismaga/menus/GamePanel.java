@@ -39,14 +39,14 @@ public class GamePanel extends Menu	{
 
 	public GamePanel() {
 		tempPlayerData = new ArrayList<Object>();
-		entityManager = new EntityManager();
+		setEntityManager(new EntityManager());
 		
 		loadPlayerData();
 		
-		entityManager.addEntity(new OldManNPC(64,64));
+		getEntityManager().addEntity(new OldManNPC(64,64));
 		
 		for(int x = 0; x < 10; x++)
-			entityManager.addEntity(new Potion(x * 32, new Random().nextInt(64)));
+			getEntityManager().addEntity(new Potion(x * 32, new Random().nextInt(64)));
 		
 		LevelManager.setCurrentLevel(new Level(Game.imageLoader.load("/maps/level.png")));
 		
@@ -58,7 +58,7 @@ public class GamePanel extends Menu	{
 		if(LevelManager.getCurrentLevel() != null) {
 			LevelManager.getCurrentLevel().tick();
 		}
-		entityManager.tick();
+		getEntityManager().tick();
 	}
 	
 	public void render(Graphics g) {
@@ -67,7 +67,7 @@ public class GamePanel extends Menu	{
 			LevelManager.getCurrentLevel().render(g);
 		}
 		
-		entityManager.render(g);
+		getEntityManager().render(g);
 
 		hud.render(g);
 		//top
@@ -102,7 +102,7 @@ public class GamePanel extends Menu	{
 		player.health = new Integer(playerData.getProperty("health"));
 		*/
 		
-		entityManager.addEntity(player);
+		getEntityManager().addEntity(player);
 		
 	}
 	
@@ -121,5 +121,13 @@ public class GamePanel extends Menu	{
 	
 	public static HUD getHUD() {
 		return hud;
+	}
+
+	public static EntityManager getEntityManager() {
+		return entityManager;
+	}
+
+	public static void setEntityManager(EntityManager entityManager) {
+		GamePanel.entityManager = entityManager;
 	}
 }

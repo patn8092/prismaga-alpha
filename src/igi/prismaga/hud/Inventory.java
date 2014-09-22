@@ -3,13 +3,14 @@ package igi.prismaga.hud;
 import igi.prismaga.gfx.GameFont;
 import igi.prismaga.items.Item;
 import igi.prismaga.main.Game;
+import igi.prismaga.menus.GamePanel;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class Inventory {
 	
-	public InventoryCell[][]	inventory;
+	public InventoryCell[][] inventory;
 	
 	private BufferedImage cellImage = Game.imageLoader.load("/gfx/hud/inventory_cell.png");
 	
@@ -109,25 +110,26 @@ public class Inventory {
 			inventoryUIButton.CursorIsHovering = true;
 		} else { 
 			inventoryUIButton.CursorIsHovering = false; 
-			Game.getMouseHandler().LEFT_BUTTON_PRESSED = false; //prevents flickering
 		}
 		
-		if(Game.getMouseHandler().LEFT_BUTTON_PRESSED && inventoryUIButton.CursorIsHovering) {
-			
-			if(mode == 1) {
-				mode = -1; //autosets button mode to collapse
-				showFullInventory = true; //shows full inventory
-				inventoryUIButton.setImage(inventoryUIButton.image1); //sets button image
-				Game.getMouseHandler().LEFT_BUTTON_PRESSED = false; //prevents flickering
-				return;
-			} else if(mode == -1) {
-				mode = 1; //autosets button mode to expand
-				showFullInventory = false; //collapses inventory to hotbar
-				inventoryUIButton.setImage(inventoryUIButton.image0); //sets button image
-				Game.getMouseHandler().LEFT_BUTTON_PRESSED = false; //prevents flickering
-				return;
+		if(inventoryUIButton.CursorIsHovering) {
+			if(Game.getMouseHandler().LEFT_BUTTON_PRESSED) {
+				if(mode == 1) {
+					mode = -1; //autosets button mode to collapse
+					showFullInventory = true; //shows full inventory
+					inventoryUIButton.setImage(inventoryUIButton.image1); //sets button image
+					Game.getMouseHandler().LEFT_BUTTON_PRESSED = false; //prevents flickering
+					return;
+				} else if(mode == -1) {
+					mode = 1; //autosets button mode to expand
+					showFullInventory = false; //collapses inventory to hotbar
+					inventoryUIButton.setImage(inventoryUIButton.image0); //sets button image
+					Game.getMouseHandler().LEFT_BUTTON_PRESSED = false; //prevents flickering
+					return;
+				}
 			}
 		}
+		
 		if(showFullInventory) {
 			for(int y = 0; y < h; y++) {
 				for(int x = 0; x < w; x++) {
@@ -148,6 +150,7 @@ public class Inventory {
 					if(i.getClass() == inventory[x][y].item.getClass()) {
 						inventory[x][y].add(1);
 						System.out.println(inventory[x][y].amount);
+						GamePanel.getEntityManager().removeEntity(i);
 						return;
 					} else {
 						continue;
